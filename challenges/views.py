@@ -15,16 +15,17 @@ monthly_challenges = {
     "september": "Learn Django for 20 minutes a day!",
     "october": "Eat no meat for the entire month!",
     "november": "Walk for at least 20 minutes!",
-    "december": "Learn Django for 20 minutes a day!",
+    "december": None
 }
 # Create your views here.
 
 
 def index(request):
-    list_items = ""
     months = list(monthly_challenges.keys())
 
-    return render(request, "challenges/index.html", {})
+    return render(request, "challenges/index.html", {
+        "months": months
+    })
 
 
 def monthly_challenge_by_number(request, month):
@@ -44,7 +45,7 @@ def monthly_challenge(request, month):
         challenge_text = monthly_challenges[month]
         return render(request, "challenges/challenge.html", {
             "text": challenge_text,
-            "month": month
+            "month_name": month
         })
     except:
         return HttpResponseNotFound("<h1>This is not a valid month!</h1>")
